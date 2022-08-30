@@ -44,9 +44,9 @@
       }
     </style>
     {% endblock %}
-    <title>{% block title %}Home Page{% endblock %}</title>
+    <title>{% block title %}Dashboard{% endblock %}</title>
   </head>
-  <body>
+  <body onload="load()">
 <div class="main">
   <nav class="navbar navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
@@ -91,33 +91,40 @@
 
           <div class="mt-8 sm:mt-12">
             <dl class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                <div class="flex flex-col px-4 py-8 text-center border border-gray-100 rounded-lg">
-                  <dt class="order-last text-lg font-medium text-gray-500">
-                                    Total Students
-                  </dt>
+              <div class="flex flex-col px-4 py-8 text-center border border-gray-100 rounded-lg">
+                <dt class="order-last text-lg font-medium text-gray-500">
+                                  Total Students
+                </dt>
 
-                  <dd class="text-4xl font-extrabold text-blue-600 md:text-5xl">
-                                    {{ users }}+
-                  </dd>
-                </div>
+                <dd class="text-4xl font-extrabold text-blue-600 md:text-5xl">
+                  <p>
+                      <span id='TS'>{{ users }}</span>+
+                  </p>          
+                </dd>
+              </div>
 
-                <div class="flex flex-col px-4 py-8 text-center border border-gray-100 rounded-lg">
+                
+
+              <div class="flex flex-col px-4 py-8 text-center border border-gray-100 rounded-lg">
                   <dt class="order-last text-lg font-medium text-gray-500">
                                     Total Hostels
                   </dt>
 
-                  <dd class="text-4xl font-extrabold text-blue-600 md:text-5xl">3
+                  <dd class="text-4xl font-extrabold text-blue-600 md:text-5xl"><span id='TH'>3</span>
                   </dd>
                 </div>
 
-                <div class="flex flex-col px-4 py-8 text-center border border-gray-100 rounded-lg">
-                  <dt class="order-last text-lg font-medium text-gray-500">
-                      Complaints Resolved
-                  </dt>
+              <div class="flex flex-col px-4 py-8 text-center border border-gray-100 rounded-lg">
+                <dt class="order-last text-lg font-medium text-gray-500">
+                    Complaints Resolved
+                </dt>
 
-                  <dd class="text-4xl font-extrabold text-blue-600 md:text-5xl">{{ complaints }}+
-                  </dd>
-                </div>
+                <dd class="text-4xl font-extrabold text-blue-600 md:text-5xl">
+                  <p>
+                      <span id='CR'>{{ complaints }}</span>+
+                  </p>
+                </dd>
+              </div>
             </dl>
 
             <div class="hmp1">
@@ -136,6 +143,71 @@
     ></script>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     {% block script %}
+      <script>
+          // var th = 7 ;
+          var ts = 213 ;
+          var cr = 86 ;
+          var tr = 300 ;
+          var sw = 55 ; 
+
+          function animate(obj, initVal, lastVal, duration) {
+            let startTime = null;
+    
+          //get the current timestamp and assign it to the currentTime variable
+          let currentTime = Date.now();
+    
+          //pass the current timestamp to the step function
+          const step = (currentTime ) => {
+    
+          //if the start time is null, assign the current time to startTime
+          if (!startTime) {
+            startTime = currentTime ;
+          }
+    
+          //calculate the value to be used in calculating the number to be displayed
+          const progress = Math.min((currentTime - startTime)/ duration, 1);
+    
+          //calculate what to be displayed using the value gotten above
+          obj.innerHTML = Math.floor(progress * (lastVal - initVal) + initVal);
+    
+          //checking to make sure the counter does not exceed the last value (lastVal)
+          if (progress < 1) {
+            window.requestAnimationFrame(step);
+          } else {
+                window.cancelAnimationFrame(window.requestAnimationFrame(step));
+            }
+          };
+          //start animating
+            window.requestAnimationFrame(step);
+          }
+          let text1 = document.getElementById('TS');
+          // let text2 = document.getElementById('TH');
+          let text3 = document.getElementById('CR');
+          let text4 = document.getElementById('TR');
+          let text5 = document.getElementById('SW');
+
+          const load = () => {
+            animate(text1, 0, ts, 3000);
+          //    animate(text2, 0, th , 3000);
+            animate(text3, 0, cr, 3000);
+            animate(text4, 0, tr, 3000);
+            animate(text5, 0, sw, 3000);
+
+          }
+      </script>
+    {% endblock %}
+
+    {% block footer %}
+    <footer class="footer mt-auto py-3" style="background: rgb(208, 212, 221);">
+      <div class="container mx-auto text-center" id="foot">
+        <span class="text-muted ">CodeRelay 
+          <a href="#">AMV - IIITNR</a>
+        </span><br>
+      </div>
+      <div class="container mx-auto text-center" id="copyright">
+        <span class="text-muted ">&copy Hostel-Management</span>
+      </div>
+    </footer>
     {% endblock %}
   </body>
 </html>

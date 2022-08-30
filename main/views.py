@@ -9,26 +9,6 @@ import operator
 
 @login_required(login_url="/login")
 def home(request):
-    complaints = Complaint.objects.all()
-    user_specific = []
-    for complaint in complaints:
-        if complaint.person == request.user:
-            user_specific.append(complaint)
-        elif complaint.status == "pending" and request.user.username == "officer_1":
-            user_specific.append(complaint)
-        elif complaint.status == "issue escalted" and request.user.username == "officer_2":
-            user_specific.append(complaint)
-        elif complaint.status == "issue escalted further" and request.user.username == "officer_3":
-            user_specific.append(complaint)
-    
-    complaints = user_specific
-    filtered = None
-
-    try:
-        user_ = User_info.objects.get(user=request.user)
-    except:
-        user_ = None
-
     if request.method == "POST":
 
         filter_id = request.POST.get("filter-id")
@@ -39,22 +19,41 @@ def home(request):
 
         delete = request.POST.get("complaint-id-delete")
 
-        if filter_id == 'hostel_name' and request.user.has_perm("main.change_complaint"):
-            filtered = sorted(complaints, key=operator.attrgetter('hostel_name'))
+        if filter_id:
 
-        elif filter_id == "category" and request.user.has_perm("main.change_complaint"):
-            filtered = sorted(complaints, key=operator.attrgetter('category'))
+            complaints = Complaint.objects.all()
+            user_specific = []
+            for complaint in complaints:
+                if complaint.person == request.user:
+                    user_specific.append(complaint)
+                elif complaint.status == "pending" and request.user.username == "officer_1":
+                    user_specific.append(complaint)
+                elif complaint.status == "issue escalated" and request.user.username == "officer_2":
+                    user_specific.append(complaint)
+                elif complaint.status == "issue escalated further" and request.user.username == "officer_3":
+                    user_specific.append(complaint)
+            
+            complaints = user_specific
+            filtered = None
 
-        elif filter_id == 'availability' and request.user.has_perm("main.change_complaint"):
-            filtered = sorted(complaints, key=operator.attrgetter('availability'))
+            if filter_id == 'hostel_name' and request.user.has_perm("main.change_complaint"):
+                filtered = sorted(complaints, key=operator.attrgetter('hostel_name'))
 
-        elif filter_id == 'created_at' and request.user.has_perm("main.change_complaint"):
-            filtered = sorted(complaints, key=operator.attrgetter('created_at'))
+            elif filter_id == "category" and request.user.has_perm("main.change_complaint"):
+                filtered = sorted(complaints, key=operator.attrgetter('category'))
+
+            elif filter_id == 'availability' and request.user.has_perm("main.change_complaint"):
+                filtered = sorted(complaints, key=operator.attrgetter('availability'))
+
+            elif filter_id == 'created_at' and request.user.has_perm("main.change_complaint"):
+                filtered = sorted(complaints, key=operator.attrgetter('created_at'))
+            
+            return render(request, 'main/home.html', {"complaints": filtered, "length": len(filtered)})
 
         elif accept and request.user.has_perm("main.change_complaint"):
             complaint = Complaint.objects.filter(id=accept).first()
             if complaint and (request.user.has_perm("main.change_complaint")):
-                complaint.status = "request accpeted"
+                complaint.status = "request accepted"
                 complaint.save()
 
         elif reject and request.user.has_perm("main.change_complaint"):
@@ -67,9 +66,9 @@ def home(request):
             complaint = Complaint.objects.filter(id=escalate).first()
             if complaint:
                 if request.user.username == "officer_1":
-                    complaint.status = "issue escalted"
+                    complaint.status = "issue escalated"
                 if request.user.username == "officer_2":
-                    complaint.status = "issue escalted further"
+                    complaint.status = "issue escalated further"
                 complaint.save()
 
         elif delete:
@@ -77,11 +76,22 @@ def home(request):
             if complaint and (complaint.person == request.user):
                 complaint.delete()
 
+    complaints = Complaint.objects.all()
+    user_specific = []
+    for complaint in complaints:
+        if complaint.person == request.user:
+            user_specific.append(complaint)
+        elif complaint.status == "pending" and request.user.username == "officer_1":
+            user_specific.append(complaint)
+        elif complaint.status == "issue escalated" and request.user.username == "officer_2":
+            user_specific.append(complaint)
+        elif complaint.status == "issue escalated further" and request.user.username == "officer_3":
+            user_specific.append(complaint)
+    
+    complaints = user_specific
 
-    if filtered is None:
-        return render(request, 'main/home.html', {"complaints": complaints, "length": len(complaints)})
-    else:
-        return render(request, 'main/home.html', {"complaints": filtered, "length": len(filtered)})
+    return render(request, 'main/home.html', {"complaints": complaints, "length": len(complaints)})
+
     
 
 # @login_required(login_url="/login")

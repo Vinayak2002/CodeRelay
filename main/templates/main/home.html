@@ -22,7 +22,8 @@
 
   .filter > form > button {
     margin: 20px;
-    background: rgb(56, 225, 56);
+    background: #4169E1 ;
+    /* background: rgb(56, 225, 56); */
   }
 
   x {
@@ -94,7 +95,7 @@
     {% for complaint in complaints %}
       {% if user == complaint.person %}
         <div class="card mt-2">
-          <div class="card-header"><strong>Complaint Id: {{ complaint.id }} <x></x> User: {{ complaint.person.username }} <x></x> Room: {{ complaint.room }} <x></x> Hostel: {{ complaint.hostel_name }}</strong></div>
+          <div class="card-header"><strong>Complaint Id: {{ complaint.id }} <x></x> User: {{ complaint.person.username }} <x></x> Room: {{ complaint.room }} <x></x> Hostel: {{ complaint.hostel_name }} <x></x> Category: {{ complaint.category }}</strong></div>
           <div class="card-body d-flex flex-row justify-content-between">
             <div>
               <h5 class="card-title">{{post.title}}</h5>
@@ -104,12 +105,11 @@
               {% if user == complaint.person %}
                 <form method="post">
                 {% csrf_token %}
-                  <button
-                    type=""
+                  <a
                     class="btn btn-info"
                   >
                     {{ complaint.status }}
-                  </button>
+                  </a>
 
                   <button
                     type="submit"
@@ -131,7 +131,7 @@
       {% if perms.main.change_complaint and complaint.status != "rejected" %}
         {% if complaint.status == "pending" and user.username == "officer_1" %}
           <div class="card mt-2">
-            <div class="card-header"><strong>Complaint Id: {{ complaint.id }} <x></x> User: {{ complaint.person.username }} <x></x> Room: {{ complaint.room }} <x></x> Hostel: {{ complaint.hostel_name }}</strong></div>
+            <div class="card-header"><strong>Complaint Id: {{ complaint.id }} <x></x> User: {{ complaint.person.username }} <x></x> Room: {{ complaint.room }} <x></x> Hostel: {{ complaint.hostel_name }} <x></x> Category: {{ complaint.category }}</strong></div>
             <div class="card-body d-flex flex-row justify-content-between">
               <div>
                 <h5 class="card-title">{{post.title}}</h5>
@@ -174,9 +174,9 @@
           </div>
         {% endif %}
 
-        {% if complaint.status == "issue escalted" and user.username == "officer_2" %}
+        {% if complaint.status == "issue escalated" and user.username == "officer_2" %}
           <div class="card mt-2">
-            <div class="card-header"><strong>Complaint Id: {{ complaint.id }} <x></x> User: {{ complaint.person.username }} <x></x> Room: {{ complaint.room }} <x></x> Hostel: {{ complaint.hostel_name }}</strong></div>
+            <div class="card-header"><strong>Complaint Id: {{ complaint.id }} <x></x> User: {{ complaint.person.username }} <x></x> Room: {{ complaint.room }} <x></x> Hostel: {{ complaint.hostel_name }} <x></x> Category: {{ complaint.category }}</strong></div>
             <div class="card-body d-flex flex-row justify-content-between">
               <div>
                 <h5 class="card-title">{{post.title}}</h5>
@@ -213,14 +213,14 @@
                 </form>
               </div>
             </div>
-            <div class="card-footer text-muted">Availability: {{complaint.availability}}</div>
+            <div class="card-footer text-muted">Availability: {{complaint.availability | date:"F d Y"}}</div>
             <div class="card-footer text-muted">Createad At: {{complaint.created_at}}</div>
           </div>
         {% endif %}
 
-        {% if complaint.status == "issue escalted further" and user.username == "officer_3" %}
+        {% if complaint.status == "issue escalated further" and user.username == "officer_3" %}
           <div class="card mt-2">
-            <div class="card-header"><strong>Complaint Id: {{ complaint.id }} <x></x> User: {{ complaint.person.username }} <x></x> Room: {{ complaint.room }} <x></x> Hostel: {{ complaint.hostel_name }}</strong></div>
+            <div class="card-header"><strong>Complaint Id: {{ complaint.id }} <x></x> User: {{ complaint.person.username }} <x></x> Room: {{ complaint.room }} <x></x> Hostel: {{ complaint.hostel_name }} <x></x> Category: {{ complaint.category }}</strong></div>
             <div class="card-body d-flex flex-row justify-content-between">
               <div>
                 <h5 class="card-title">{{post.title}}</h5>
@@ -253,9 +253,6 @@
           </div>
         {% endif %}
       {% endif %}
-    {% empty %} 
-      <p class="empty-complaints-text">Complaints will appear here...</p>
-      <img class="empty-complaints" src="{% static '/Resources/1.jpg' %}">
 
     {% endfor %} 
   {% else %}
@@ -263,3 +260,7 @@
     <img class="empty-complaints" src="{% static '/Resources/1.jpg' %}">
   {% endif %}
 {% endblock %}
+
+{% block footer %}
+{% endblock %}
+
