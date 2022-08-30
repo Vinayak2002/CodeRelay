@@ -58,10 +58,10 @@
         <ul class="navbar-nav">
             {% if user.is_authenticated %}
             <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
-            {% if perms.main.add_complaint %}
-            <li class="nav-item"><a class="nav-link" href="/create-complaint">Post Complaint</a></li>
-            <li class="nav-item"><a class="nav-link" href="/view_profile">Profile</a></li>
-            {% endif %}
+              {% if perms.main.add_complaint %}
+              <li class="nav-item"><a class="nav-link" href="/create-complaint">Post Complaint</a></li>
+              <li class="nav-item"><a class="nav-link" href="/view_profile">Profile</a></li>
+              {% endif %}
             <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard </a></li>
             <li class="nav-item">
               <a class="nav-link" href="#">Logged in as {{user.username}} |</a>
