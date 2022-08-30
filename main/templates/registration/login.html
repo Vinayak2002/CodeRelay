@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %} 
+{% block title %}Login{% endblock %} 
+{% block navbar-items %}
+  <ul class="navbar-nav">
+      {% if user.is_authenticated %}
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/login">Login</a>
+      </li>
+      {% endif %}
+  </ul>
+{% endblock %}
+{% load crispy_forms_tags %} 
+{% block content %}
+<form method="post">
+  {% csrf_token %}{{form|crispy}}
+  <p>Don't have an account? CLICK <a href="/sign-up" style="color:blue;"><b>HERE</b></a>!</p>
+  <button type="submit" class="btn btn-success" style="color:black;">Login</button>
+</form>
+{% endblock %}

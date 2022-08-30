@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %} {% block title %}Update the profile{% endblock %} 
+{% block navbar-items %}
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+              <a class="nav-link" href="#">Logged in as {{user.username}} |</a>
+            </li>
+            {% endif %}
+        </ul>
+{% endblock %}
+{% load crispy_forms_tags %} {% block content %}
+<form method="post">
+  {% csrf_token %}{{form|crispy}}
+  <button type="submit" class="btn btn-success">Update</button>
+</form>
+{% endblock %}

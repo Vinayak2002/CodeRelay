@@ -1,0 +1,466 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    width: 100%;
+    background: linear-gradient(to top, rgba(167, 161, 161, 0.3)50% ,rgba(167, 161, 161,0.3)50% ) ;
+
+    background-position: center;
+    background-size: cover;
+    height: 109vh ;
+}
+
+.navbar{
+    background-color: rgba(0, 0, 0, 0.8);
+    /* width: 1200px; */
+    height: 75px;
+    margin: auto;
+}
+
+.navimg{
+    
+    height: 71px;
+    float: left ;
+}
+
+.icon{
+    width: 50%;
+    float: left;
+    height: 70px;
+}
+
+.logo{
+    color: rgb(171, 130, 238);
+    font-size: 35px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 20px;
+    float: left;
+    padding-top: 10px;
+}
+
+.menu{
+    width: 400px;
+    float: right;
+    height: 70px;
+    margin-right: 200px;
+
+}
+
+ul{
+    float: left;
+    display: flex;
+    justify-content: left;
+    align-items:flex-start;
+}
+
+ul li{
+    list-style: none;
+    margin-left: 60px ;
+    margin-top: 27px;
+    font-size: 18px;
+}   
+
+ul li a{
+    text-decoration: none;
+    color: #fff ;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    transition: 0.4s ease-in-out;
+}
+
+ul li a:hover{
+    color: #1a5da0;
+
+}
+
+
+
+/* ```````````` */
+.content {
+    margin-left: 50px;
+    margin-top: 50px;
+    /* margin-right: 5px; */
+    width: 1400px;   
+    height: auto;
+    /* margin: auto; */
+    color: #fff;
+    position: relative;
+    border-radius: 10px;
+}
+
+.form {
+
+    margin-top: 50px;
+    margin-left: 5px;
+    width: 360px;
+    height: 480px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8)50%, rgba(0, 0, 0, 0.8)50%);
+    position: absolute;
+    top: -20px;
+    left: 1450px;
+    transform: translate(0%, -5%);
+    border-radius: 10px;
+    padding: 25px;
+}
+
+.form h2 {
+    width: 220px;
+    font-family: sans-serif;
+    text-align: center;
+    color: #ff7200;
+    font-size: 22px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-top: 2px;
+    margin-left: 40px;
+    margin-right: 35px;
+
+    padding: 8px;
+  
+}
+
+.form input {
+    width: 240px;
+    height: 35px;
+
+    background: transparent;
+    border-bottom: 1px solid #ff7200;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+
+    color: #fff;
+    font-size: 15px;
+    letter-spacing: 1px;
+    
+    margin-top: 30px;
+    margin-left: 15px;
+    margin-right: 35px;
+
+    font-family: sans-serif;
+}
+
+.form input:focus {
+    outline: none;
+}
+
+::placeholder {
+    color: #fff;
+    font-family: Arial;
+}
+
+.btnn {
+    margin-left: 70px;
+    margin-right: 70px;
+    width: 180px;
+    height: 40px;
+    background: #ff7200;
+    border: none;
+    margin-top: 30px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #fff;
+    transition: 0.4s ease;
+}
+
+.btnn:hover {
+    background: #fff;
+    color: #ff7200;
+}
+
+.btnn a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+.form .link {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.form .link a {
+    text-decoration: none;
+    color: #ff7200;
+}
+
+.liw {
+    padding-top: 15px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+
+.icons{
+    display: flex;
+    justify-content: center;
+}
+
+.icons a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.icons ion-icon {
+    color: #fff;
+    font-size: 30px;
+    padding-left: 14px;
+    padding-top: 5px;
+    transition: 0.3s ease;
+}
+
+.icons ion-icon:hover {
+    color: #ff7200;
+}
+
+.hmp1{
+    /* height: 500px;
+    width: 700px; */
+    margin-top: 0px;
+    display: flex;
+    justify-content: center;
+}
+
+/* `````````````Responsiveness */
+
+@media screen and (max-width:1200px) {
+    /*Normal Screen*/
+
+    .navbar{
+        width: 100%;
+        height: 100px;
+    }
+    .navimg{
+        width: 30%;
+        height: 15%;
+    }
+    ul{
+        margin-left: 30px;
+    }   
+    ul li{
+        margin-left: 60px;
+    }
+    ul li a{
+       font-size: 1.6vw; 
+    }
+    .search{
+        margin-top: 3px;
+        margin-left: 290px;
+    }
+    .srch{
+        height: 40px;
+        width: 190px;
+        font-size: 14px;
+    }
+    .btn{
+        height:40px;
+        width: 80px;
+    }
+    .content{
+        width: 100%;
+    }
+    .content h1, .content span{
+        font-size: 4.5vw; 
+    }
+    .content .par{
+        width: 90%;
+        font-size: 1.5vw;
+    }
+    .content .cn{
+        width: 13%;
+        height: 3.5vw;
+        font-size: 1.8vw;
+    }
+    .content a{
+        font-size: 1.6vw
+    }
+}
+
+@media screen and (max-width:1170px) {
+    /*Login-box*/
+    .main{
+        padding-left: 20px;
+        height: 180vh;
+    }
+    .form{
+        margin-left: -30px;
+        width: 250px;
+        height: 370px;
+        background: linear-gradient(to top, rgba(0,0,0,0.8)50%,rgba(0,0,0,0.8)50%);
+        position: absolute;
+        top: 420px;
+        left: 50px;
+        transform: translate(0%,-5%);
+        border-radius: 10px;
+        padding: 25px;
+    }
+    .form input{
+        width: 240px;
+        height: 35px;
+        background: transparent;
+        border-bottom: 1px solid #ff7200;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        color: #fff;
+        font-size: 15px;
+        letter-spacing: 1px;
+        margin-top: 30px;
+        font-family: sans-serif;
+    }
+    .btnn a{
+        font-size: 16px;
+    }
+    .form .link a{
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 830px){
+    /*For tablet*/
+   
+    .content{
+        margin-top: 120px;
+        width: 80%;   
+        margin-left: 40px;  
+    }
+    .content h1, .content span{
+        font-size: 6vw; 
+    }
+    .content .par{
+        width: 90%;
+        font-size: 1.8vw;
+    }
+    .content .cn{
+        width: 15%;
+        height: 4.5vw;
+        font-size: 2vw;
+    }
+    .content a{
+        font-size: 2vw
+    }
+    .logo{
+        margin-left: 240px;
+        width: 100%;
+        margin-top: 15px;
+        font-size: 5vw;
+    }
+    .menu{
+        width: 100%;
+    }
+    ul{
+        margin-top: -5px;
+        margin-left: 5px;
+    }
+    ul li{
+        margin-left: 60px;
+    }
+    ul li a{
+       font-size: 2vw; 
+    }
+    .search{
+        margin-top: -20px;
+        margin-left: 60px;   
+    }   
+    .srch{
+        height: 30px;
+        width: 160px;
+        font-size: 12px;
+    }
+    .btn{
+        height:30px;
+        width: 70px;
+    }
+    .main{
+        padding-left: 20px;
+        height: 180vh;
+    }
+    .form{
+        margin-left: -30px;
+        width: 250px;
+        height: 370px;
+        background: linear-gradient(to top, rgba(0,0,0,0.8)50%,rgba(0,0,0,0.8)50%);
+        position: absolute;
+        top: 430px;
+        left: 50px;
+        transform: translate(0%,-5%);
+        border-radius: 10px;
+        padding: 25px;
+    }
+    .form input{
+        width: 240px;
+        height: 35px;
+        background: transparent;
+        border-bottom: 1px solid #ff7200;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        color: #fff;
+        font-size: 15px;
+        letter-spacing: 1px;
+        margin-top: 30px;
+        font-family: sans-serif;
+    }
+    .btnn a{
+        font-size: 16px;
+    }
+    .form .link a{
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 600px){
+    /*IPAD*/
+    
+    .content{
+        margin-top: 80px;
+        margin-left: 20px;
+    }
+    .search{
+        margin-top: -40px;
+        margin-left: 42px;
+    }
+    .logo{
+        margin-left: 180px;
+        font-size: 4vw;
+    }
+    ul{
+        margin-top: -25px;
+        margin-left: -5px;
+    }
+    ul li {
+        margin-left: 50px;
+    }
+    ul li a{
+        font-size: 2vw;
+    }   
+}
+
+@media screen and (max-width: 450px){
+    /*mobile*/
+    .logo{
+        margin-left: 140px;
+        font-size: 4vw;
+    }
+    ul{
+        margin-top: -25px;
+    }
+    ul li {
+        margin-left: 42px;
+    }
+    ul li a{
+        font-size: 2vw;
+    }  
+    .search{
+        margin-top: -40px;
+        margin-left: 38px;
+    } 
+
+}
+

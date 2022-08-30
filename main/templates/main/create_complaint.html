@@ -1,0 +1,95 @@
+{% extends 'main/base.html' %} 
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static '/css/complaint.css' %}">
+    <style>
+      body, html {
+          background: linear-gradient(to bottom right, top, rgba(123, 119, 119, 0.3)50% ,rgba(255, 249, 249, 0.3)50% ) ;
+      }
+      .navbar-nav > li > a {
+          font-size: 15px;
+          white-space: nowrap; 
+          margin-top: auto;
+          margin-bottom: 20px;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .info {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+      }
+
+      .info-content {
+        margin: 0 30px;
+      }
+
+      .contForm {
+        background: #ffedeb;
+        display: flex;
+        flex-flow: column wrap;
+        border-radius: 20px;
+        padding: 25px;
+        color: black;
+      }
+
+      #id_description {
+        height: 120px;
+      }
+
+      .btn {
+        color: black;
+      }
+
+      .line-5 {
+        height: 5px;
+        margin-bottom: 10px;
+        background: linear-gradient(
+          to bottom,
+          transparent 2px,
+          black 2px,
+          black 3px,
+          transparent 3px
+        );
+      }
+    </style>
+{% endblock %}
+{% block title %}Create a Complaint{% endblock %} 
+{% load crispy_forms_tags %} 
+{% block content %}
+<div class="container">
+  <div class="m-20">
+    <form method="post" class="contForm">
+      <div class="info">
+        <div class="room">
+          <p class="info-content">Room - {{ users.room }}</p>
+        </div>
+        <div class="hostel">
+          <p class="info-content">Hostel - "{{ users.hostel_name }}"</p>
+        </div>
+      </div>
+      <div class="line-5"></div>
+      {% csrf_token %}
+      {{form|crispy}}
+      <div class="addComp">
+        <button type="submit" class="btn btn-success">Post Complaint</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
+<script>
+  $(function () {
+    $("#id_availability").datetimepicker({
+      format: 'd/m/Y H:i',
+    });
+  });
+</script>
+{% endblock %}
