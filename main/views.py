@@ -10,6 +10,18 @@ import operator
 @login_required(login_url="/login")
 def home(request):
     complaints = Complaint.objects.all()
+    user_specific = []
+    for complaint in complaints:
+        if complaint.person == request.user:
+            user_specific.append(complaint)
+        elif complaint.status == "pending" and request.user.username == "officer_1":
+            user_specific.append(complaint)
+        elif complaint.status == "issue escalted" and request.user.username == "officer_2":
+            user_specific.append(complaint)
+        elif complaint.status == "issue escalted further" and request.user.username == "officer_3":
+            user_specific.append(complaint)
+    
+    complaints = user_specific
     filtered = None
 
     try:
@@ -67,12 +79,12 @@ def home(request):
 
 
     if filtered is None:
-        return render(request, 'main/home.html', {"complaints": complaints})
+        return render(request, 'main/home.html', {"complaints": complaints, "length": len(complaints)})
     else:
-        return render(request, 'main/home.html', {"complaints": filtered})
+        return render(request, 'main/home.html', {"complaints": filtered, "length": len(filtered)})
     
 
-@login_required(login_url="/login")
+# @login_required(login_url="/login")
 def dashboard(request):
     try:
         complaints = len(Complaint.objects.all())

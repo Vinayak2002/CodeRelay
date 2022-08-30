@@ -1,8 +1,23 @@
-{% extends 'main/base.html' %} {% block title %}Login{% endblock %} 
-{% load crispy_forms_tags %} {% block content %}
+{% extends 'main/base.html' %} 
+{% block title %}Login{% endblock %} 
+{% block navbar-items %}
+  <ul class="navbar-nav">
+      {% if user.is_authenticated %}
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/login">Login</a>
+      </li>
+      {% endif %}
+  </ul>
+{% endblock %}
+{% load crispy_forms_tags %} 
+{% block content %}
 <form method="post">
   {% csrf_token %}{{form|crispy}}
-  <p>Don't have an account? Create one <a href="/sign-up">Here</a>!</p>
+  <p>Don't have an account? CLICK <a href="/sign-up" style="color:blue;"><b>HERE</b></a>!</p>
   <button type="submit" class="btn btn-success">Login</button>
 </form>
 {% endblock %}

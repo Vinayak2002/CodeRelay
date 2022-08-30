@@ -1,8 +1,50 @@
-{% extends 'main/base.html' %} {% block title %}Sign Up{% endblock %} 
-{% load crispy_forms_tags %} {% block content %}
-<form method="post">
+{% extends 'main/base.html' %} 
+{% block style %}
+<style>
+  .navbar-nav > li > a {
+    font-size: 15px;
+    white-space: nowrap; 
+    margin-top: auto;
+    margin-bottom: 20px;
+  }
+
+  .signup {
+    margin: 20px 25%;
+    background: rgb(255, 164, 139);
+    border-radius: 20px;
+    padding: 25px;
+  }
+
+  .form-text > ul > li, #hint_id_username, #hint_id_password2 {
+    font-size: 15px;
+    margin: 0 10px;
+  }
+
+  .form-text > ul {
+    float: left;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    align-content: center;
+  }
+
+  .link {
+    color: blue;
+  } 
+
+  .btn {
+    color:black;
+    margin: 5px;
+  }
+</style>
+{% endblock %} 
+{% block title %}Sign Up{% endblock %} 
+{% load crispy_forms_tags %} 
+{% block content %}
+<form method="post" class="signup">
   {% csrf_token %}{{form|crispy}}
-  <p>Have an account? Login <a href="/login">Here</a>!</p>
+  <p>Have an account? LOGIN <a href="/login" class="link">HERE</a>!</p>
   <button type="submit" class="btn btn-success">Register</button>
 </form>
 {% endblock %}
