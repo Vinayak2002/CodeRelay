@@ -5,9 +5,7 @@
 
 .main {
     width: 100%;
-    /* background-image: url(a1.jpg); */
     background: linear-gradient(to top, rgba(167, 161, 161, 0.3)50% ,rgba(167, 161, 161,0.3)50% ) ;
-    /* background: white; */
 
     background-position: center;
     background-size: cover;
@@ -465,3 +463,4 @@ ul li a:hover{
     } 
 
 }
+

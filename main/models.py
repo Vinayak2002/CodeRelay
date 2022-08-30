@@ -20,6 +20,7 @@ class Complaint(models.Model):
     hostel_name = models.CharField(max_length=200)
     room = models.CharField(max_length=5)
     phone = models.CharField(max_length=10)
+    status = models.CharField(max_length=50, default="pending")
 
     category = models.CharField(max_length=200)
     availability = models.DateTimeField()

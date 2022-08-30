@@ -2,11 +2,19 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Complaint, User_info
+from django.contrib.admin.widgets import AdminDateWidget
 
 HOSTEL_CHOICES = (
     ('hostel-1','Hostel-1'),
     ('hostel-2', 'Hostel-2'),
     ('hostel-3','Hostel-3'),
+)
+
+CATEGORY_CHOICES = (
+    ('Electrical','Electrical'),
+    ('Cleanliness', 'Cleanliness'),
+    ('Security','Security'),
+    ('Water','Water'),
 )
 
 class RegisterHostelUserForm(UserCreationForm):
@@ -26,9 +34,13 @@ class UserInfoForm(forms.ModelForm):
         fields = ["phone", "room", "hostel_name"]
 
 class ComplaintForm(forms.ModelForm):
-    category = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'placeholder': 'Cleanliness, Electricity etc'}))
-    availability = forms.DateTimeField(widget=forms.TextInput(attrs={'placeholder': '%Y-%M-%D %H:%M'}))
-    # officer = forms.CharField(max_length=9)
+    category = forms.TypedChoiceField(choices=CATEGORY_CHOICES, coerce=str, initial='hostel-1', required=True)
+    # availability = forms.DateTimeField(widget=forms.TextInput(attrs={'placeholder': '%Y-%M-%D %H:%M'}))
+    availability = forms.DateTimeField(widget=forms.SelectDateWidget)
+
+
     class Meta:
         model = Complaint
         fields = ["category", "availability", "description" ]
+
+

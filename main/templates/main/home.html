@@ -1,44 +1,259 @@
-{% extends 'main/base.html' %} {% block title %}Home Page{% endblock %} 
+{% extends 'main/base.html' %} 
+{% load static %}
+{% block title %}Home Page{% endblock %} 
+{% block style %}
+<style>
+  .mt-2 {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+  .navbar-nav > li > a {
+    font-size: 15px;
+    white-space: nowrap; 
+    margin-top: auto;
+    margin-bottom: 20px;
+  }
+  .filter {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content:space-evenly;
+  }
+
+  .filter > form > button {
+    margin: 20px;
+    background: rgb(56, 225, 56);
+  }
+
+  x {
+    margin: 0 25px;
+  }
+
+  .text {
+    margin-top: 30px;
+  }
+
+  .btn {
+    color:black;
+    margin: 5px;
+  }
+
+  .empty-complaints-text {
+    font-size: 20px;
+    margin: 20px;
+  }
+</style>
+{% endblock %} 
+
 {% block content %} 
-{% for complaint in complaints %}
-<div class="card mt-2">
-  <div class="card-header"><strong>@{{ complaint.person.username }}</strong></div>
-  <div class="card-body d-flex flex-row justify-content-between">
-    <div>
-      <h5 class="card-title">{{post.title}}</h5>
-      <p>{{complaint.description}}</p>
-    </div>
-    <div>
-      {% if user == complaint.person or perms.main.delete_complaint %}
+  <div class="filter">
+    {% if perms.main.change_complaint %}
+      <p class="text">Filter By - </p>
       <form method="post">
         {% csrf_token %}
         <button
           type="submit"
-          class="btn btn-danger"
-          name="post-id"
-          value="{{post.id}}"
+          class="btn"
+          name="filter-id"
+          value="{{ 'hostel_name' }}"
         >
-          Delete
+          Hostel
         </button>
-      </form>
-      {% endif %}
-      {% if user.is_staff %}
-      <form method="post">
-        {% csrf_token %}
+
         <button
           type="submit"
-          class="btn btn-warning"
-          name="user-id"
-          value="{{post.author.id}}"
+          class="btn"
+          name="filter-id"
+          value="{{ 'category' }}"
         >
-          Ban User
+          Issue Category
+        </button>
+
+        <button
+          type="submit"
+          class="btn"
+          name="filter-id"
+          value="{{ 'availability' }}"
+        >
+          Student Availability
+        </button>
+
+        <button
+          type="submit"
+          class="btn"
+          name="filter-id"
+          value="{{ 'created_at' }}"
+        >
+          Date Issued
         </button>
       </form>
-      {% endif %}
-    </div>
+    {% endif %}
   </div>
-  <div class="card-footer text-muted">{{complaint.created_at}}</div>
-</div>
-{% empty %}
-<p>No posts yet :(</p>
-{% endfor %} {% endblock %}
+  {% for complaint in complaints %}
+    {% if user == complaint.person %}
+      <div class="card mt-2">
+        <div class="card-header"><strong>Complaint Id: {{ complaint.id }} <x></x> User: {{ complaint.person.username }} <x></x> Room: {{ complaint.room }} <x></x> Hostel: {{ complaint.hostel_name }}</strong></div>
+        <div class="card-body d-flex flex-row justify-content-between">
+          <div>
+            <h5 class="card-title">{{post.title}}</h5>
+            <p>{{complaint.description}}</p>
+          </div>
+          <div>
+            {% if user == complaint.person %}
+              <form method="post">
+              {% csrf_token %}
+                <button
+                  type=""
+                  class="btn btn-info"
+                >
+                  {{ complaint.status }}
+                </button>
+
+                <button
+                  type="submit"
+                  class="btn btn-danger"
+                  name="complaint-id-delete"
+                  value="{{complaint.id}}"
+                >
+                  Delete
+                </button>
+              </form>
+            {% endif %}
+          </div>
+        </div>
+        <div class="card-footer text-muted">Availability: {{complaint.availability}}</div>
+        <div class="card-footer text-muted">Createad At: {{complaint.created_at}}</div>
+      </div>
+    {% endif %}
+
+    {% if perms.main.change_complaint and complaint.status != "rejected" %}
+      {% if complaint.status == "pending" and user.username == "officer_1" %}
+        <div class="card mt-2">
+          <div class="card-header"><strong>Complaint Id: {{ complaint.id }} <x></x> User: {{ complaint.person.username }} <x></x> Room: {{ complaint.room }} <x></x> Hostel: {{ complaint.hostel_name }}</strong></div>
+          <div class="card-body d-flex flex-row justify-content-between">
+            <div>
+              <h5 class="card-title">{{post.title}}</h5>
+              <p>{{complaint.description}}</p>
+            </div>
+            <div>
+              <form method="post">
+                {% csrf_token %}
+                <button
+                  type="submit"
+                  class="btn btn-success"
+                  name="complaint-id-accept"
+                  value="{{complaint.id}}"
+                >
+                  Accept
+                </button>
+              
+                <button
+                  type="submit"
+                  class="btn btn-warning"
+                  name="complaint-id-escalate"
+                  value="{{complaint.id}}"
+                >
+                  Escalate
+                </button>
+                
+                <button
+                  type="submit"
+                  class="btn btn-danger"
+                  name="complaint-id-reject"
+                  value="{{complaint.id}}"
+                >
+                  Reject
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="card-footer text-muted">Availability: {{complaint.availability}}</div>
+          <div class="card-footer text-muted">Createad At: {{complaint.created_at}}</div>
+        </div>
+      {% endif %}
+
+      {% if complaint.status == "issue escalted" and user.username == "officer_2" %}
+        <div class="card mt-2">
+          <div class="card-header"><strong>Complaint Id: {{ complaint.id }} <x></x> User: {{ complaint.person.username }} <x></x> Room: {{ complaint.room }} <x></x> Hostel: {{ complaint.hostel_name }}</strong></div>
+          <div class="card-body d-flex flex-row justify-content-between">
+            <div>
+              <h5 class="card-title">{{post.title}}</h5>
+              <p>{{complaint.description}}</p>
+            </div>
+            <div>
+              <form method="post">
+                {% csrf_token %}
+                <button
+                  type="submit"
+                  class="btn btn-success"
+                  name="complaint-id-accept"
+                  value="{{complaint.id}}"
+                >
+                  Accept
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-warning"
+                  name="complaint-id-escalate"
+                  value="{{complaint.id}}"
+                >
+                  Escalate
+                </button>
+                
+                <button
+                  type="submit"
+                  class="btn btn-danger"
+                  name="complaint-id-reject"
+                  value="{{complaint.id}}"
+                >
+                  Reject
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="card-footer text-muted">Availability: {{complaint.availability}}</div>
+          <div class="card-footer text-muted">Createad At: {{complaint.created_at}}</div>
+        </div>
+      {% endif %}
+
+      {% if complaint.status == "issue escalted further" and user.username == "officer_3" %}
+        <div class="card mt-2">
+          <div class="card-header"><strong>Complaint Id: {{ complaint.id }} <x></x> User: {{ complaint.person.username }} <x></x> Room: {{ complaint.room }} <x></x> Hostel: {{ complaint.hostel_name }}</strong></div>
+          <div class="card-body d-flex flex-row justify-content-between">
+            <div>
+              <h5 class="card-title">{{post.title}}</h5>
+              <p>{{complaint.description}}</p>
+            </div>
+            <div>
+              <form method="post">
+                {% csrf_token %}
+                <button
+                  type="submit"
+                  class="btn btn-success"
+                  name="complaint-id-accept"
+                  value="{{complaint.id}}"
+                >
+                  Accept
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-danger"
+                  name="complaint-id-reject"
+                  value="{{complaint.id}}"
+                >
+                  Reject
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="card-footer text-muted">Availability: {{complaint.availability}}</div>
+          <div class="card-footer text-muted">Createad At: {{complaint.created_at}}</div>
+        </div>
+      {% endif %}
+    {% endif %}
+  {% empty %} 
+    <p class="empty-complaints-text">Complaints will appear here...</p>
+    <img class="empty-complaints" src="{% static '/Resources/1.jpg' %}">
+
+  {% endfor %} 
+{% endblock %}
