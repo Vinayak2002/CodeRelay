@@ -31,7 +31,7 @@ class UserInfoForm(forms.ModelForm):
 
     class Meta:
         model = User_info
-        fields = ["phone", "room", "hostel_name"]
+        fields = ["name", "phone", "room", "hostel_name"]
 
 class ComplaintForm(forms.ModelForm):
     category = forms.TypedChoiceField(choices=CATEGORY_CHOICES, coerce=str, initial='hostel-1', required=True)

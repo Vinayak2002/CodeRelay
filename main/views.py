@@ -152,6 +152,15 @@ def update_profile(request):
     return render(request, 'main/update_profile.html', {"form": form})
 
 
+@login_required(login_url="/login")
+def view_profile(request):
+    user_info = None
+    if request.method == 'GET':
+        user_info = User_info.objects.get(user=request.user)
+
+    return render(request, 'main/profile.html', {"user_info": user_info})
+
+
 def sign_up(request):
     if request.method == 'POST':
         form = RegisterHostelUserForm(request.POST)

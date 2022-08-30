@@ -10,6 +10,7 @@ HOSTEL_CHOICES = (
 
 class User_info(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, default="john doe")
     phone = models.CharField(max_length=10)
     hostel_name = models.CharField(max_length=10)
     room = models.CharField(max_length=10)
